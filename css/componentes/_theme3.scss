@@ -1,0 +1,57 @@
+/*Theme 2*/
+$body-bg3:hsl(268, 75%, 9%);
+$keypad-bg3:  hsl(268, 71%, 12%);
+$screen-bg3: hsl(268, 71%, 12%);
+$key-reset-bg3: hsl(281, 89%, 26%);
+$key-reset-shadow3: hsl(285, 91%, 52%);
+$key-result-bg3: hsl(176, 100%, 44%);
+$key-result-shadow3: hsl(177, 92%, 70%);
+$key-main-bg3: hsl(268, 47%, 21%);
+$key-main-shadow3:hsl(290, 70%, 36%)    ;
+$text-numbers3: hsl(52, 100%, 62%);
+$text-white: hsl(0, 0, 100%);
+
+.calculator--3 {
+    background-color: $body-bg3;
+}
+
+.calculator__top--3 {
+    color: $text-numbers3
+}
+
+.options__container--3 {
+    background-color: $keypad-bg3;
+}
+
+.options--active--3 {
+    background-color: $key-result-bg3;
+    transition: background-color .3s ease-in-out;
+}
+
+.calculator__view--3 {
+    background-color: $screen-bg3;
+    color: $text-numbers3;
+}
+
+.calculator__keyboard--3 {
+    background-color: $keypad-bg3;
+}
+
+.grid__item-3 {
+    background-color: $key-main-bg3;
+    box-shadow: 0px 3.5px 0 0px $key-main-shadow3;
+    color: $text-numbers3;
+
+    &--complete {
+        color: $text-white;
+        background-color: $key-reset-bg3;
+        box-shadow: 0px 3.5px 0 0px $key-reset-shadow3;
+
+    }
+
+    &--result {
+        color: hsl(198, 20%, 13%);
+        background-color: $key-result-bg3;
+        box-shadow: 0px 3.5px 0 0px $key-result-shadow3;
+    }
+}

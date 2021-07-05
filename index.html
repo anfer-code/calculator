@@ -2,25 +2,63 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
-
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Frontend Mentor | Calculator app</title>
-
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
+  <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
+  <main id="calculator" class="calculator">
+    <div class="calculator__container">
 
+      <div id="calculator__top" class="calculator__top">
+        <p>calc</p>
+        <div class="calculator__theme">
+          <p>theme</p>
+          <div class="calculator__options">
+            <ul>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+            </ul>
+            <div id="options__container" class="options__container">
+              <div id="option1" class="options  options--active"></div>
+              <div id="option2" class="options"></div>
+              <div id="option3" class="options"></div>
+            </div><!-- options__container -->
+          </div><!-- calculator__options -->
+        </div><!-- calculator__theme -->
+      </div><!-- calculator__top -->
 
-  
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
+      <div id="screen" class="calculator__view">
+        <p>111,33</p>
+      </div>
+
+      <div id="keyboard" class="calculator__keyboard">
+        <div class="grid">
+          <div class="grid__item" data-number="7">7</div>
+          <div class="grid__item">8</div>
+          <div class="grid__item">9</div>
+          <div class="grid__item">4</div>
+          <div class="grid__item">5</div>
+          <div class="grid__item">6</div>
+          <div class="grid__item">1</div>
+          <div class="grid__item">2</div>
+          <div class="grid__item">3</div>
+          <div class="grid__item">.</div>
+          <div class="grid__item">0</div>
+          <div class="grid__item">/</div>
+          <div class="grid__item">*</div>
+          <div class="grid__item grid__item--menos">-</div>
+          <div class="grid__item grid__item--plus">+</div>
+          <div class="grid__item grid__item--complete grid__item--del">DEL</div>
+          <div class="grid__item grid__item--complete grid__item--reset">RESET</div>
+          <div class="grid__item grid__item--result resultado">=</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="./index.js"></script>
 </body>
 </html>

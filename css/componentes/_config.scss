@@ -1,0 +1,14 @@
+@import "./theme1";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {  
+    color: $text-numbers1;
+    font-size: 32px;
+    font-weight: bold;
+    font-family: "Arial", sans-serif;
+}
