@@ -6,9 +6,9 @@ let calculatorTop = document.querySelector("#calculator__top")
 let optionsContainer = document.querySelector("#options__container")
 let screen = document.querySelector("#screen")
 let keyboard = document.querySelector("#keyboard")
-let items = document.querySelectorAll(".grid__item")
+let items = document.querySelectorAll(".grid__item-1")
 
-function remove(c) {
+function remover(c) {
     calculator.classList.remove("calculator--@".replace("@", c))
     calculatorTop.classList.remove("calculator__top--@".replace("@", c))
     optionsContainer.classList.remove("options__container--@".replace("@", c))
@@ -24,59 +24,49 @@ function adder(c) {
     keyboard.classList.add("calculator__keyboard--@".replace("@",c))
 }
 
+const removerItem = (remove1, remove2, insert) => {
+
+    for(let i of items) {
+        if(i.classList.contains("grid__item-@--complete".replace("@", remove1)) || i.classList.contains("grid__item-@--complete".replace("@", remove2))) {
+            i.classList.remove("grid__item-@--complete".replace("@", remove1))
+            i.classList.remove("grid__item-@--complete".replace("@", remove2))
+            i.classList.add("grid__item-@--complete".replace("@", insert))
+        }
+        if(i.classList.contains("grid__item-@--result".replace("@", remove1)) || i.classList.contains("grid__item-@--result".replace("@", remove2))) {
+            i.classList.remove("grid__item-@--result".replace("@", remove1))
+            i.classList.remove("grid__item-@--result".replace("@", remove2))
+            i.classList.add("grid__item-@--result".replace("@", insert))
+
+        }
+        if(i.classList.contains("grid__item-@".replace("@", remove1)) || i.classList.contains("grid__item-@".replace("@", remove2))) {
+            i.classList.remove("grid__item-@".replace("@", remove1))
+            i.classList.remove("grid__item-@".replace("@", remove2))
+            i.classList.add("grid__item-@".replace("@", insert))
+
+        }
+    }
+    
+}
+
 const removeActive1 = () => {
     option2.classList.remove("options--active--2")
     option3.classList.remove("options--active--3")
     option1.classList.add("options--active")
-    remove("2")
-    remove("3")
+    remover("2")
+    remover("3")
 
-    for(let i of items) {
-        if(i.classList.contains("grid__item-2--complete") || i.classList.contains("grid__item-3--complete")) {
-            i.classList.remove("grid__item-3--complete")
-            i.classList.remove("grid__item-2--complete")
-            i.classList.add("grid__item--complete")
-        }
-        if(i.classList.contains("grid__item-3--result") || i.classList.contains("grid__item-2--result")) {
-            i.classList.remove("grid__item-3--result")
-            i.classList.remove("grid__item-2--result")
-            i.classList.add("grid__item--result")
+    removerItem("2", "3", "1")
 
-        }
-        if(i.classList.contains("grid__item-2") || i.classList.contains("grid__item-3")
-        ) {
-            i.classList.remove("grid__item-2")
-            i.classList.remove("grid__item-3")
-            i.classList.add("grid__item")
-
-        }
-    }
 }
 
 const removeActive2 = () => {
     option1.classList.remove("options--active")
     option3.classList.remove("options--active--3")
     option2.classList.add("options--active--2")
-    remove("3")
+    remover("3")
     adder("2")
-    for(let i of items) {
-        if(i.classList.contains("grid__item--complete") || i.classList.contains("grid__item-3--complete")) {
-            i.classList.remove("grid__item--complete")
-            i.classList.remove("grid__item-3--complete")
-            i.classList.add("grid__item-2--complete")
-        }
-        if(i.classList.contains("grid__item--result") || i.classList.contains("grid__item-3--result")) {
-            i.classList.remove("grid__item--result")
-            i.classList.remove("grid__item-3--result")
-            i.classList.add("grid__item-2--result")
+    removerItem("1", "3", "2")
 
-        }
-        if(i.classList.contains("grid__item-3") || i.classList.contains("grid__item")) {
-            i.classList.remove("grid__item-3")
-            i.classList.add("grid__item-2")
-
-        }
-    }
 }
 
 const removeActive3 = () => {
@@ -84,29 +74,54 @@ const removeActive3 = () => {
     option2.classList.remove("options--active--2")
     option3.classList.add("options--active--3")
 
-    remove("2")
+    remover("2")
     adder("3")
 
-    for(let i of items) {
-        if(i.classList.contains("grid__item--complete") || i.classList.contains("grid__item-2--complete")) {
-            i.classList.remove("grid__item--complete")
-            i.classList.remove("grid__item-2--complete")
-            i.classList.add("grid__item-3--complete")
-        }
-        if(i.classList.contains("grid__item--result") || i.classList.contains("grid__item-2--result")) {
-            i.classList.remove("grid__item--result")
-            i.classList.remove("grid__item-2--result")
-            i.classList.add("grid__item-3--result")
+    removerItem("1", "2", "3")
 
-        }
-        if(i.classList.contains("grid__item-2") || i.classList.contains("grid__item")) {
-            i.classList.remove("grid__item-2")
-            i.classList.add("grid__item-3")
-
-        }
-    }
 }
 
 option1.addEventListener("click", removeActive1)
 option2.addEventListener("click", removeActive2)
 option3.addEventListener("click", removeActive3)
+
+
+
+let number1 = document.querySelector("#number1")
+let number2 =document.querySelector("#number2")
+let number3 =document.querySelector("#number3")
+let number4 =document.querySelector("#number4")
+let number5 =document.querySelector("#number5")
+let number6 =document.querySelector("#number6")
+let number7 =document.querySelector("#number7")
+let number8 =document.querySelector("#number8")
+let number9 =document.querySelector("#number9")
+let number0 =document.querySelector("#number0")
+let sum =document.querySelector("#sum")
+let resta =document.querySelector("#rest")
+let div =document.querySelector("#div")
+let mult =document.querySelector("#mult")
+
+number1.addEventListener("click", eventClick)
+number2.addEventListener("click", eventClick)
+number3.addEventListener("click", eventClick)
+number4.addEventListener("click", eventClick)
+number5.addEventListener("click", eventClick)
+number6.addEventListener("click", eventClick)
+number7.addEventListener("click", eventClick)
+number8.addEventListener("click", eventClick)
+number9.addEventListener("click", eventClick)
+number0.addEventListener("click", eventClick)
+
+function eventClick(){
+    let hel = document.querySelector("#hel")
+    let value = this.dataset.number
+    
+    let text = document.createTextNode(value)
+
+    hel.append(text)
+    this.classList.add("scale")
+    setTimeout( () => {
+        this.classList.remove("scale")
+    }, 100)
+}
