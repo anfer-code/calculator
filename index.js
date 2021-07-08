@@ -97,10 +97,14 @@ let number7 =document.querySelector("#number7")
 let number8 =document.querySelector("#number8")
 let number9 =document.querySelector("#number9")
 let number0 =document.querySelector("#number0")
+let reset = document.querySelector("#reset")
+let resultado = document.querySelector("#igual")
 let sum =document.querySelector("#sum")
 let resta =document.querySelector("#rest")
 let div =document.querySelector("#div")
 let mult =document.querySelector("#mult")
+let hel = document.querySelector("#hel")
+let helContent  = hel.textContent
 
 number1.addEventListener("click", eventClick)
 number2.addEventListener("click", eventClick)
@@ -112,16 +116,136 @@ number7.addEventListener("click", eventClick)
 number8.addEventListener("click", eventClick)
 number9.addEventListener("click", eventClick)
 number0.addEventListener("click", eventClick)
+sum.addEventListener("click", sumar)
+resta.addEventListener("click", restar)
+mult.addEventListener("click", multiplicar)
+reset.addEventListener("click", deleted)
+resultado.addEventListener("click", result)
+
+function deleted(){
+    hel.innerText = ""
+    this.classList.add("scale")
+        setTimeout( () => {
+            this.classList.remove("scale")
+        }, 100)
+}
+
+let valores = []
+let operador = ""
+let cont = 0
+
+function sumar(){
+    operador = "+"
+    ++cont
+    if(cont <= 1) {
+        let valor1 = Number(hel.outerText)
+        hel.innerText= ""
+        valores.unshift(valor1)
+        this.classList.add("scale")
+        setTimeout( () => {
+            this.classList.remove("scale")
+        }, 100)
+    } else {
+        let valor2 = Number(hel.outerText)
+        hel.innerText= ""
+        valores.unshift(valor2)
+        this.classList.add("scale")
+        setTimeout( () => {
+            this.classList.remove("scale")
+        }, 100)
+    }
+}
+
+function restar(){
+    operador = "-"
+    ++cont
+    if(cont <= 1) {
+        let valor1 = Number(hel.outerText)
+        hel.innerText= ""
+        valores.unshift(valor1)
+        this.classList.add("scale")
+        setTimeout( () => {
+            this.classList.remove("scale")
+        }, 100)
+    } else {
+        let valor2 = Number(hel.outerText)
+        hel.innerText= ""
+        valores.unshift(valor2)
+        this.classList.add("scale")
+        setTimeout( () => {
+            this.classList.remove("scale")
+        }, 100)
+    }
+}
+
+function multiplicar(){
+    operador = "*"
+    ++cont
+    if(cont <= 1) {
+        let valor1 = Number(hel.outerText)
+        hel.innerText= ""
+        valores.unshift(valor1)
+        this.classList.add("scale")
+        setTimeout( () => {
+            this.classList.remove("scale")
+        }, 100)
+    } else {
+        let valor2 = Number(hel.outerText)
+        hel.innerText= ""
+        valores.unshift(valor2)
+        this.classList.add("scale")
+        setTimeout( () => {
+            this.classList.remove("scale")
+        }, 100)
+    }
+}
+
+
+
+function result(){
+    let val1 = valores[0]
+    let valor2 = Number(hel.outerText)
+    hel.innerText= ""
+
+    if(operador === "+") {
+        let resultadito = val1 + valor2;
+        hel.append(resultadito)
+        operador = ""
+    } else if(operador === "-") {
+        let resultadito = val1 - valor2;
+        hel.append(resultadito)
+        operador = ""
+    } else if(operador === "*") {
+        let resultadito = val1 * valor2;
+        hel.append(resultadito)
+        operador = ""
+    }
+
+
+
+
+    
+}
+
+    
 
 function eventClick(){
-    let hel = document.querySelector("#hel")
-    let value = this.dataset.number
+    if(helContent.length < 12) {
+        helContent = hel.textContent
+        let value = this.dataset.number
+        let text = document.createTextNode(value)
     
-    let text = document.createTextNode(value)
-
-    hel.append(text)
-    this.classList.add("scale")
-    setTimeout( () => {
-        this.classList.remove("scale")
-    }, 100)
+        hel.append(text)
+        this.classList.add("scale")
+        setTimeout( () => {
+            this.classList.remove("scale")
+        }, 100)
+    } else {
+        this.classList.add("scale")
+        setTimeout( () => {
+            this.classList.remove("scale")
+        }, 100)
+        return 0
+    }
+    
 }
