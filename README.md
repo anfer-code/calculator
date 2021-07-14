@@ -22,7 +22,7 @@ Users should be able to:
 
 ### Screenshot
 
-![My calculator](./calculator.png)
+![My calculator](./images/calculator.png)
 
 ### Links
 
