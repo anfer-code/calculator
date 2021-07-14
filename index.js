@@ -1,3 +1,4 @@
+// Recuperando mis elementos html
 let option1 = document.querySelector("#option1")
 let option2 = document.querySelector("#option2")
 let option3 = document.querySelector("#option3")
@@ -8,7 +9,8 @@ let screen = document.querySelector("#screen")
 let keyboard = document.querySelector("#keyboard")
 let items = document.querySelectorAll(".grid__item-1")
 
-function remover(c) {
+// Funcion para cambiar los template, elimina las clases.
+function removeClass(c) {
     calculator.classList.remove("calculator--@".replace("@", c))
     calculatorTop.classList.remove("calculator__top--@".replace("@", c))
     optionsContainer.classList.remove("options__container--@".replace("@", c))
@@ -16,7 +18,8 @@ function remover(c) {
     keyboard.classList.remove("calculator__keyboard--@".replace("@", c))
 }
 
-function adder(c) {
+// Funcion para cambiar los template, agrega las clases.
+function addClass(c) {
     calculator.classList.add("calculator--@".replace("@",c))
     calculatorTop.classList.add("calculator__top--@".replace("@",c))
     optionsContainer.classList.add("options__container--@".replace("@",c))
@@ -24,6 +27,7 @@ function adder(c) {
     keyboard.classList.add("calculator__keyboard--@".replace("@",c))
 }
 
+// Función para cambiar estilos, agregar y remover de los otros template
 const removerItem = (remove1, remove2, insert) => {
 
     for(let i of items) {
@@ -48,204 +52,231 @@ const removerItem = (remove1, remove2, insert) => {
     
 }
 
+//Función callback para el evento
 const removeActive1 = () => {
     option2.classList.remove("options--active--2")
     option3.classList.remove("options--active--3")
     option1.classList.add("options--active")
-    remover("2")
-    remover("3")
+    removeClass("2")
+    removeClass("3")
 
     removerItem("2", "3", "1")
 
 }
 
+//Función callback para el evento
 const removeActive2 = () => {
     option1.classList.remove("options--active")
     option3.classList.remove("options--active--3")
     option2.classList.add("options--active--2")
-    remover("3")
-    adder("2")
+    removeClass("3")
+    addClass("2")
     removerItem("1", "3", "2")
 
 }
 
+//Función callback para el evento
 const removeActive3 = () => {
     option1.classList.remove("options--active")
     option2.classList.remove("options--active--2")
     option3.classList.add("options--active--3")
 
-    remover("2")
-    adder("3")
+    removeClass("2")
+    addClass("3")
 
     removerItem("1", "2", "3")
 
 }
 
+//Agregando mis eventos
 option1.addEventListener("click", removeActive1)
 option2.addEventListener("click", removeActive2)
 option3.addEventListener("click", removeActive3)
 
 
-
-let number1 = document.querySelector("#number1")
-let number2 =document.querySelector("#number2")
-let number3 =document.querySelector("#number3")
-let number4 =document.querySelector("#number4")
-let number5 =document.querySelector("#number5")
-let number6 =document.querySelector("#number6")
-let number7 =document.querySelector("#number7")
-let number8 =document.querySelector("#number8")
-let number9 =document.querySelector("#number9")
-let number0 =document.querySelector("#number0")
+//funcion reset
 let reset = document.querySelector("#reset")
-let resultado = document.querySelector("#igual")
-let sum =document.querySelector("#sum")
-let resta =document.querySelector("#rest")
-let div =document.querySelector("#div")
-let mult =document.querySelector("#mult")
-let hel = document.querySelector("#hel")
-let helContent  = hel.textContent
-
-number1.addEventListener("click", eventClick)
-number2.addEventListener("click", eventClick)
-number3.addEventListener("click", eventClick)
-number4.addEventListener("click", eventClick)
-number5.addEventListener("click", eventClick)
-number6.addEventListener("click", eventClick)
-number7.addEventListener("click", eventClick)
-number8.addEventListener("click", eventClick)
-number9.addEventListener("click", eventClick)
-number0.addEventListener("click", eventClick)
-sum.addEventListener("click", sumar)
-resta.addEventListener("click", restar)
-mult.addEventListener("click", multiplicar)
 reset.addEventListener("click", deleted)
+
+//funcion resultado
+let resultado = document.querySelector("#igual")
 resultado.addEventListener("click", result)
 
-function deleted(){
-    hel.innerText = ""
-    this.classList.add("scale")
-        setTimeout( () => {
-            this.classList.remove("scale")
-        }, 100)
+//Valores de la pantalla
+let pantalla = document.querySelector("#hel")
+let pantallaContent  = pantalla.textContent
+
+//eventos sobre la calculadora
+app.addEventListener("click", eventClick) //Numeros - punto - DEL
+app.addEventListener("click", calc) // Operadores
+
+//Para tener control de los operadores y solo agregar uno
+let valores = []
+let cont = 0
+//Para seleccionar el operador
+let operador = ""
+
+//Función para agregar efecto al presionar boton
+function styles(item){
+    // let styled = item.target
+    item.classList.add("scale")
+    setTimeout( () => {
+        item.classList.remove("scale")
+    }, 100)
 }
 
-let valores = []
-let operador = ""
-let cont = 0
+//Función para limpiar pantalla
+function deleted(ev){
+        pantalla.textContent = ""
+        pantallaContent = ""
+        operador = ""
+        cont = 0
+        styles(ev.target)
+}
 
-function sumar(){
+//Función para escoger el operador del teclado y ejecutar su función
+function calc(ev){
+    //Suma
+    if(ev.target.classList.contains("grid__item-1--plus")) {
+        let sum = ev.target
+        sumar(sum)
+    } else if(ev.target.classList.contains("grid__item-1--menos")) {
+        let menos = ev.target
+        restar(menos)
+    } else if(ev.target.dataset.number == "*") {
+        let mult = ev.target
+        multiplicar(mult)
+    } else if(ev.target.dataset.number == "/") {
+        let division = ev.target
+        dividir(division)
+    }
+}
+
+//Funciones operadoras
+function sumar(ev){
     operador = "+"
     ++cont
     if(cont <= 1) {
-        let valor1 = Number(hel.outerText)
-        hel.innerText= ""
+        let valor1 = Number(pantalla.outerText)
+        pantalla.innerText+= "+"
         valores.unshift(valor1)
-        this.classList.add("scale")
-        setTimeout( () => {
-            this.classList.remove("scale")
-        }, 100)
-    } else {
-        let valor2 = Number(hel.outerText)
-        hel.innerText= ""
-        valores.unshift(valor2)
-        this.classList.add("scale")
-        setTimeout( () => {
-            this.classList.remove("scale")
-        }, 100)
-    }
+        styles(ev)
+    } 
 }
 
-function restar(){
+function restar(menos){
     operador = "-"
     ++cont
     if(cont <= 1) {
-        let valor1 = Number(hel.outerText)
-        hel.innerText= ""
+        let valor1 = Number(pantalla.outerText)
+        pantalla.innerText += "-"
         valores.unshift(valor1)
-        this.classList.add("scale")
-        setTimeout( () => {
-            this.classList.remove("scale")
-        }, 100)
-    } else {
-        let valor2 = Number(hel.outerText)
-        hel.innerText= ""
-        valores.unshift(valor2)
-        this.classList.add("scale")
-        setTimeout( () => {
-            this.classList.remove("scale")
-        }, 100)
-    }
+        styles(menos)
+    } 
 }
 
-function multiplicar(){
+function multiplicar(mult){
     operador = "*"
     ++cont
     if(cont <= 1) {
-        let valor1 = Number(hel.outerText)
-        hel.innerText= ""
+        let valor1 = Number(pantalla.outerText)
+        pantalla.innerText += "*"
         valores.unshift(valor1)
-        this.classList.add("scale")
-        setTimeout( () => {
-            this.classList.remove("scale")
-        }, 100)
-    } else {
-        let valor2 = Number(hel.outerText)
-        hel.innerText= ""
-        valores.unshift(valor2)
-        this.classList.add("scale")
-        setTimeout( () => {
-            this.classList.remove("scale")
-        }, 100)
+        styles(mult)
     }
 }
 
+function dividir(div){
+    operador = "/"
+    ++cont
+    if(cont <= 1 ) {
+        let valor1 = Number(pantalla.outerText)
+        pantalla.innerText += "/"
+        valores.unshift(valor1)
+        styles(div)
 
+    }
+}
 
-function result(){
+//Boton result
+function result(ev){
     let val1 = valores[0]
-    let valor2 = Number(hel.outerText)
-    hel.innerText= ""
+    let valor2 = Number(pantalla.outerText.replace(val1 + operador, " ").trim())
+    pantalla.innerText= ""
+    pantallaContent = ""
 
     if(operador === "+") {
         let resultadito = val1 + valor2;
-        hel.append(resultadito)
+        pantalla.append(resultadito)
         operador = ""
     } else if(operador === "-") {
         let resultadito = val1 - valor2;
-        hel.append(resultadito)
+        pantalla.append(resultadito)
         operador = ""
     } else if(operador === "*") {
         let resultadito = val1 * valor2;
-        hel.append(resultadito)
+        pantalla.append(resultadito)
         operador = ""
+    } else if (operador === "/") {
+        if(valor2 === 0) {
+            pantalla.append("NaN")
+            operador = ""  
+        } else {
+            let resultadito = val1 / valor2
+            pantalla.append(resultadito)
+            operador = ""  
+        }
     }
 
+    styles(ev.target)
 
-
-
-    
+    cont = 0
+    valores.pop()
 }
 
-    
+////Función para leer los numeros
+function eventClick(ev){
+    // Condicional para saber si es un numero
+    if(ev.target.classList.contains("number")){
+        // agrego target a una variable
+        let number = ev.target
+        styles(number)
+        //condicional para que no me escriba infinitos numeros
+        if(pantallaContent.length < 12) {
+            // le paso el valor del textcontent a mi variable global
+            pantallaContent = pantalla.textContent
+            let value = number.dataset.number
+            let text = document.createTextNode(value)
+        
+            pantalla.append(text)
+        } else {
+            return 0
+        }
+        //Otro condicional para verificar si clicó un punto
+    } else if(ev.target.dataset.number === "."){
+        // 
+            let point = ev.target
+            styles(point)
 
-function eventClick(){
-    if(helContent.length < 12) {
-        helContent = hel.textContent
-        let value = this.dataset.number
-        let text = document.createTextNode(value)
-    
-        hel.append(text)
-        this.classList.add("scale")
-        setTimeout( () => {
-            this.classList.remove("scale")
-        }, 100)
-    } else {
-        this.classList.add("scale")
-        setTimeout( () => {
-            this.classList.remove("scale")
-        }, 100)
-        return 0
+            if(pantallaContent.length < 12) {
+                pantallaContent = pantalla.textContent
+                let value = point.dataset.number
+                let text = document.createTextNode(value)
+                pantalla.append(text)
+            } else {
+                return 0
+            }
+            //boton DEL
+    } else if (ev.target.classList.contains("grid__item-1--del")) {
+        if(pantalla.textContent === ""){
+            ev.preventDefault()
+        } else {
+            let del = ev.target
+
+            pantalla.lastChild.remove()
+
+            styles(del)
+        }
+        
     }
-    
 }
