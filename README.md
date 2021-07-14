@@ -38,6 +38,7 @@ Users should be able to:
 - Flexbox 
 - CSS Grid
 - Mobile-first workflow
+- JS + DOM
 
 ## Author
 
