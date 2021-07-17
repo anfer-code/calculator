@@ -9,6 +9,16 @@ let screen = document.querySelector("#screen")
 let keyboard = document.querySelector("#keyboard")
 let items = document.querySelectorAll(".grid__item-1")
 
+var estilos = window.getComputedStyle(calculator, null);
+//Estilos Guardados.
+let json = {
+    "estilos.backgroundColor": "calculator",
+}
+localStorage.setItem("background", JSON.stringify(json))
+
+
+localStorage.getItem("background", JSON.stringify(json))
+
 // Funcion para cambiar los template, elimina las clases.
 function removeClass(c) {
     calculator.classList.remove("calculator--@".replace("@", c))
@@ -92,7 +102,7 @@ const removeActive3 = () => {
 option1.addEventListener("click", removeActive1)
 option2.addEventListener("click", removeActive2)
 option3.addEventListener("click", removeActive3)
-
+let igual = document.querySelector("#igual")
 
 //funcion reset
 let reset = document.querySelector("#reset")
@@ -108,7 +118,7 @@ let pantallaContent  = pantalla.textContent
 
 //eventos sobre la calculadora
 app.addEventListener("click", eventClick) //Numeros - punto - DEL
-app.addEventListener("click", calc) // Operadores
+// app.addEventListener("click", calc) // Operadores
 
 //Para tener control de los operadores y solo agregar uno
 let valores = []
@@ -125,14 +135,25 @@ function styles(item){
     }, 100)
 }
 
+const obtenerNum = (operador) => {
+    let valor1 = Number(pantalla.outerText)
+    pantalla.innerText+= operador
+    valores.unshift(valor1)
+}
+
 //Función para limpiar pantalla
 function deleted(ev){
         pantalla.textContent = ""
         pantallaContent = ""
         operador = ""
         cont = 0
+        for(let i=0; i < valores.length; i++) {
+            valores.pop
+        }
         styles(ev.target)
 }
+
+calculator.addEventListener("keypress", (ev) => {console.log(ev)})
 
 //Función para escoger el operador del teclado y ejecutar su función
 function calc(ev){
@@ -154,52 +175,59 @@ function calc(ev){
 
 //Funciones operadoras
 function sumar(ev){
-    operador = "+"
     ++cont
     if(cont <= 1) {
-        let valor1 = Number(pantalla.outerText)
-        pantalla.innerText+= "+"
-        valores.unshift(valor1)
+        operador = "+"
+        obtenerNum(operador)
         styles(ev)
-    } 
+    } else if (cont === 2) {
+        result(igual, "+")
+        styles(ev)
+
+    }
+
 }
 
 function restar(menos){
-    operador = "-"
     ++cont
     if(cont <= 1) {
-        let valor1 = Number(pantalla.outerText)
-        pantalla.innerText += "-"
-        valores.unshift(valor1)
+        operador = "-"
+        obtenerNum(operador)
         styles(menos)
-    } 
+    } else if (cont === 2) {
+        result(igual, "-")
+        styles(menos)
+    }
+
 }
 
 function multiplicar(mult){
-    operador = "*"
     ++cont
     if(cont <= 1) {
-        let valor1 = Number(pantalla.outerText)
-        pantalla.innerText += "*"
-        valores.unshift(valor1)
+        operador = "*"
+        obtenerNum(operador)
+        styles(mult)
+    } else if (cont === 2) {
+        result(igual, "*")
         styles(mult)
     }
 }
 
 function dividir(div){
-    operador = "/"
     ++cont
-    if(cont <= 1 ) {
-        let valor1 = Number(pantalla.outerText)
-        pantalla.innerText += "/"
-        valores.unshift(valor1)
+    if(cont <= 1) {
+        operador = "/"
+        obtenerNum(operador)
         styles(div)
-
+    } else if (cont === 2) {
+        result(igual, "/")
+        styles(div)
     }
 }
 
+
 //Boton result
-function result(ev){
+function result(ev, operanding){
     let val1 = valores[0]
     let valor2 = Number(pantalla.outerText.replace(val1 + operador, " ").trim())
     pantalla.innerText= ""
@@ -208,27 +236,79 @@ function result(ev){
     if(operador === "+") {
         let resultadito = val1 + valor2;
         pantalla.append(resultadito)
-        operador = ""
+        if(cont === 2) {
+            pantalla.innerText+= operanding 
+            let valorsito = resultadito
+            valores.unshift(valorsito)
+            valores.pop()
+            styles(ev)
+            operador = operanding
+
+            return cont = 1
+        } else {
+            operador = ""
+        }
+        
+
     } else if(operador === "-") {
         let resultadito = val1 - valor2;
         pantalla.append(resultadito)
-        operador = ""
+        if(cont === 2) {
+            pantalla.innerText+= operanding 
+            let valorsito = resultadito
+            valores.unshift(valorsito)
+            valores.pop()
+            styles(ev)
+            operador = operanding
+
+            return cont = 1
+        } else {
+            operador = ""
+        }
+
     } else if(operador === "*") {
         let resultadito = val1 * valor2;
         pantalla.append(resultadito)
-        operador = ""
+        if(cont === 2) {
+            pantalla.innerText+= operanding 
+            let valorsito = resultadito
+            valores.unshift(valorsito)
+            valores.pop()
+            styles(ev)
+            operador = operanding
+
+            return cont = 1
+        } else {
+            operador = ""
+        }
     } else if (operador === "/") {
         if(valor2 === 0) {
             pantalla.append("NaN")
             operador = ""  
         } else {
-            let resultadito = val1 / valor2
-            pantalla.append(resultadito)
-            operador = ""  
+            let resultadito =  val1 / valor2;
+            if(resultadito === Math.floor(resultadito)){
+                pantalla.append(resultadito)
+            } else {
+                pantalla.append(resultadito.toFixed(2))
+
+            }
+            if(cont === 2) {
+                pantalla.innerText+= operanding 
+                let valorsito = resultadito
+                valores.unshift(valorsito)
+                valores.pop()
+                styles(ev)
+                operador = operanding
+    
+                return cont = 1
+            } else {
+                operador = ""
+            }
         }
     }
 
-    styles(ev.target)
+    styles(igual)
 
     cont = 0
     valores.pop()
@@ -242,7 +322,7 @@ function eventClick(ev){
         let number = ev.target
         styles(number)
         //condicional para que no me escriba infinitos numeros
-        if(pantallaContent.length < 12) {
+        if(screen.offsetWidth > (pantalla.offsetWidth + 25)  && (pantallaContent.length < 15)) {
             // le paso el valor del textcontent a mi variable global
             pantallaContent = pantalla.textContent
             let value = number.dataset.number
@@ -250,6 +330,7 @@ function eventClick(ev){
         
             pantalla.append(text)
         } else {
+            ev.preventDefault()
             return 0
         }
         //Otro condicional para verificar si clicó un punto
@@ -258,7 +339,7 @@ function eventClick(ev){
             let point = ev.target
             styles(point)
 
-            if(pantallaContent.length < 12) {
+            if(screen.offsetWidth > (pantalla.offsetWidth + 25)  && (pantallaContent.length < 15)) {
                 pantallaContent = pantalla.textContent
                 let value = point.dataset.number
                 let text = document.createTextNode(value)
@@ -278,5 +359,7 @@ function eventClick(ev){
             styles(del)
         }
         
+    } else if(ev.target.classList.contains("operador")) {
+        calc(ev)
     }
 }
