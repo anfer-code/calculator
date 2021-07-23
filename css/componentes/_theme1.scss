@@ -11,12 +11,16 @@ $key-main-shadow1:hsl(28, 16%, 65%);
 $text-numbers1: hsl(221, 14%, 31%);
 $text-white: white;
 
+.hide {
+    opacity: 0;
+}
 
 .calculator {
     width: 100%;
     height: 100%;
-    background-color: $body-bg1;
-    
+    &--1 {
+        background-color: $body-bg1;
+    }
 }
 
 //contenedor principal - Main container
@@ -40,10 +44,13 @@ $text-white: white;
     align-items: start;
     height: 40px;
     margin-bottom: 20px;
-    color: $text-white;
 
     & > p {
         padding-top: 3px;
+    }
+
+    &--1 {
+        color: $text-white;
     }
 }
 
@@ -84,14 +91,15 @@ $text-white: white;
 .options__container {
     height: 26px;
     width: 84px;
-    background-color: $keypad-bg1;
     border-radius: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 4px;
 
-    
+    &--1 {
+        background-color: $keypad-bg1;
+    }    
 }
 
 .options {
@@ -100,7 +108,7 @@ $text-white: white;
     border-radius: 50%;
 }
 
-.options--active {
+.options--active-1 {
     background-color: $key-result-bg1;
     transition: background-color .3s ease-in-out;
     transform-origin: center center;
@@ -110,14 +118,17 @@ $text-white: white;
 // Pantalla - Screen
 .calculator__view {
     height: 80px;
-    background-color: $screen-bg1;
     border-radius: 10px;
-    color: white;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     margin-bottom: 10px;
     width: 100%;
+
+    &--1 {
+        background-color: $screen-bg1;
+        color: white;
+    }
 
     p {
         padding: 0 30px;
@@ -130,7 +141,10 @@ $text-white: white;
     padding: 15px;
     padding-bottom: 0;
     width: 100%;
-    background-color: $keypad-bg1;
+
+    &--1 {
+        background-color: $keypad-bg1;
+    }
 }
 
 .grid {
@@ -151,21 +165,28 @@ $text-white: white;
     align-items: center;
     border-radius: 10px;
     transition: transform 0.3s;
+
+    &-1 {
+        background-color: $key-main-bg1;
+        box-shadow: 0px 3.5px 0 0px $key-main-shadow1;
+    }
+
+    &--complete-1 {
+        background-color: $key-reset-bg1;
+        color: $text-white;
+        box-shadow: 0px 3.5px 0 0px $key-reset-shadow1;
+    }
+    
+    &--result-1 {
+        background-color: $key-result-bg1;
+        color: $text-white;
+        box-shadow: 0px 3.5px 0 0px $key-result-shadow1;
+    }
 }
 
 .grid__item-1 {
-    
-    background-color: $key-main-bg1;
-    
-    box-shadow: 0px 3.5px 0 0px $key-main-shadow1;
-
-    &--complete {
-        background-color: $key-reset-bg1;
-        box-shadow: 0px 3.5px 0 0px $key-reset-shadow1;
-    }
-
+ 
     &--reset {
-        color: $text-white;
         grid-column: 1 / 3  ;
         font-size: 20px;
         font-weight: bold;
@@ -182,19 +203,15 @@ $text-white: white;
     }
 
     &--del {
-        color: $text-white;
         font-size: 20px;
         font-weight: bold;
         grid-column: 4;
         grid-row: 1 / 2 ;
     }
 
-    &--result {
-        background-color: $key-result-bg1;
-        color: $text-white;
-        box-shadow: 0px 3.5px 0 0px $key-result-shadow1;
-    }
 }
+
+
 
 .resultado {
     grid-column: 3 / 5;

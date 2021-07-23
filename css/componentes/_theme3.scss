@@ -11,6 +11,10 @@ $key-main-shadow3:hsl(290, 70%, 36%)    ;
 $text-numbers3: hsl(52, 100%, 62%);
 $text-white: white;
 
+.hide {
+opacity: 0;
+}
+
 .calculator--3 {
     background-color: $body-bg3;
 }
@@ -23,7 +27,7 @@ $text-white: white;
     background-color: $keypad-bg3;
 }
 
-.options--active--3 {
+.options--active-3 {
     background-color: $key-result-bg3;
     transition: background-color .3s ease-in-out;
 }
@@ -37,19 +41,23 @@ $text-white: white;
     background-color: $keypad-bg3;
 }
 
-.grid__item-3 {
-    background-color: $key-main-bg3;
-    box-shadow: 0px 3.5px 0 0px $key-main-shadow3;
-    color: $text-numbers3;
+.grid__item {
 
-    &--complete {
+    &-3 {
+        background-color: $key-main-bg3;
+        box-shadow: 0px 3.5px 0 0px $key-main-shadow3;
+        color: $text-numbers3;
+    }
+    
+
+    &--complete-3 {
         color: $text-white;
         background-color: $key-reset-bg3;
         box-shadow: 0px 3.5px 0 0px $key-reset-shadow3;
 
     }
 
-    &--result {
+    &--result-3 {
         color: hsl(198, 20%, 13%);
         background-color: $key-result-bg3;
         box-shadow: 0px 3.5px 0 0px $key-result-shadow3;

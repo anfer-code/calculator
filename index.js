@@ -8,16 +8,8 @@ let optionsContainer = document.querySelector("#options__container")
 let screen = document.querySelector("#screen")
 let keyboard = document.querySelector("#keyboard")
 let items = document.querySelectorAll(".grid__item-1")
-
-var estilos = window.getComputedStyle(calculator, null);
-//Estilos Guardados.
-let json = {
-    "estilos.backgroundColor": "calculator",
-}
-localStorage.setItem("background", JSON.stringify(json))
-
-
-localStorage.getItem("background", JSON.stringify(json))
+let optionsActive = document.querySelectorAll(".options")
+let optionsArray = Array.from(optionsActive)
 
 // Funcion para cambiar los template, elimina las clases.
 function removeClass(c) {
@@ -31,55 +23,82 @@ function removeClass(c) {
 // Funcion para cambiar los template, agrega las clases.
 function addClass(c) {
     calculator.classList.add("calculator--@".replace("@",c))
+    localStorage.setItem('calculator', "calculator--@".replace("@",c))
+
     calculatorTop.classList.add("calculator__top--@".replace("@",c))
+    localStorage.setItem('calculator__top', "calculator__top--@".replace("@",c))
+
     optionsContainer.classList.add("options__container--@".replace("@",c))
+    localStorage.setItem('options__container', "options__container--@".replace("@",c))
+
     screen.classList.add("calculator__view--@".replace("@",c))
+    localStorage.setItem('calculator__view', "calculator__view--@".replace("@",c))
+
     keyboard.classList.add("calculator__keyboard--@".replace("@",c))
+    localStorage.setItem('calculator__keyboard', "calculator__keyboard--@".replace("@",c))
+
 }
 
 // Función para cambiar estilos, agregar y remover de los otros template
 const removerItem = (remove1, remove2, insert) => {
-
     for(let i of items) {
-        if(i.classList.contains("grid__item-@--complete".replace("@", remove1)) || i.classList.contains("grid__item-@--complete".replace("@", remove2))) {
-            i.classList.remove("grid__item-@--complete".replace("@", remove1))
-            i.classList.remove("grid__item-@--complete".replace("@", remove2))
-            i.classList.add("grid__item-@--complete".replace("@", insert))
+        if(i.classList.contains("grid__item--complete-@".replace("@", remove1)) || i.classList.contains("grid__item--complete-@".replace("@", remove2))) {
+            i.classList.remove("grid__item--complete-@".replace("@", remove1))
+            i.classList.remove("grid__item--complete-@".replace("@", remove2))
+            i.classList.add("grid__item--complete-@".replace("@", insert))
+            localStorage.setItem('grid-item-complete', "grid__item--complete-@".replace("@", insert))
+            
         }
-        if(i.classList.contains("grid__item-@--result".replace("@", remove1)) || i.classList.contains("grid__item-@--result".replace("@", remove2))) {
-            i.classList.remove("grid__item-@--result".replace("@", remove1))
-            i.classList.remove("grid__item-@--result".replace("@", remove2))
-            i.classList.add("grid__item-@--result".replace("@", insert))
+        if(i.classList.contains("grid__item--result-@".replace("@", remove1)) || i.classList.contains("grid__item--result-@".replace("@", remove2))) {
+            i.classList.remove("grid__item--result-@".replace("@", remove1))
+            i.classList.remove("grid__item--result-@".replace("@", remove2))
+            i.classList.add("grid__item--result-@".replace("@", insert))
+            localStorage.setItem('grid-item-result', "grid__item--result-@".replace("@", insert))
+
 
         }
         if(i.classList.contains("grid__item-@".replace("@", remove1)) || i.classList.contains("grid__item-@".replace("@", remove2))) {
             i.classList.remove("grid__item-@".replace("@", remove1))
             i.classList.remove("grid__item-@".replace("@", remove2))
             i.classList.add("grid__item-@".replace("@", insert))
-
+            localStorage.setItem('grid-item', "grid__item-@".replace("@", insert))
         }
     }
     
 }
 
+// Función para cambiar estilos a las opciones de la bolita 
+const removerOptions = (remove1, remove2, insert) => {
+    for(i of optionsActive) {
+        if(i.classList.contains("options--active-@".replace("@", remove1)) || i.classList.contains("options--active-@".replace("@", remove2))) {
+            i.classList.add("hide")
+        } if(i.classList.contains("options--active-@".replace("@", insert))) {
+            i.classList.remove("options--active-@".replace("@", insert))     
+            i.classList.add("options--active-@".replace("@", insert))     
+            i.classList.remove("hide")     
+        } 
+    }
+}
+
 //Función callback para el evento
 const removeActive1 = () => {
-    option2.classList.remove("options--active--2")
-    option3.classList.remove("options--active--3")
-    option1.classList.add("options--active")
+    removerOptions("1", null, null)
+    removerOptions("2", "3", "1")
+    localStorage.setItem('options--active', "options--active-1")
     removeClass("2")
     removeClass("3")
-
+    addClass("1")
     removerItem("2", "3", "1")
 
 }
 
 //Función callback para el evento
 const removeActive2 = () => {
-    option1.classList.remove("options--active")
-    option3.classList.remove("options--active--3")
-    option2.classList.add("options--active--2")
+    removerOptions("2", null, null)
+    removerOptions("1", "3", "2")
+    localStorage.setItem('options--active', "options--active-2")
     removeClass("3")
+    removeClass("1")
     addClass("2")
     removerItem("1", "3", "2")
 
@@ -87,16 +106,67 @@ const removeActive2 = () => {
 
 //Función callback para el evento
 const removeActive3 = () => {
-    option1.classList.remove("options--active")
-    option2.classList.remove("options--active--2")
-    option3.classList.add("options--active--3")
+    removerOptions("3", null, null)
+    removerOptions("1", "2", "3")
+    localStorage.setItem('options--active', "options--active-3")
 
+    removeClass("1")
     removeClass("2")
     addClass("3")
 
     removerItem("1", "2", "3")
 
 }
+
+
+window.addEventListener("load", function (){
+    calculator.classList.add(localStorage.getItem("calculator"))
+    calculatorTop.classList.add(localStorage.getItem("calculator__top"))
+    optionsContainer.classList.add(localStorage.getItem("options__container"))
+    screen.classList.add(localStorage.getItem("calculator__view"))
+    keyboard.classList.add(localStorage.getItem("calculator__keyboard"))
+
+    for(i of items){ 
+        if(i.classList.contains("grid__item")) {
+            i.classList.add(localStorage.getItem("grid-item"))
+
+    }
+
+        if(i.classList.contains("grid__item--complete")) {
+        i.classList.add(localStorage.getItem("grid-item-complete"))
+    } 
+        
+        if(i.classList.contains("grid__item--result")) {
+            i.classList.add(localStorage.getItem("grid-item-result"))
+    } 
+    }
+    debugger
+    if(!this.localStorage.getItem("options--active")){
+        optionsArray[0].classList.remove("hide")
+    } else {
+        for( i of optionsActive){
+            
+            
+                    let xss = this.localStorage.getItem("options--active")
+            
+                    if(i.classList.contains("options--active-3") && xss === "options--active-3"){
+                        i.classList.remove("hide")
+                        i.classList.add(localStorage.getItem("options--active"))
+                        break          
+                    } else if(i.classList.contains("options--active-2") && xss === "options--active-2"){
+                        i.classList.remove("hide")
+                        i.classList.add(localStorage.getItem("options--active")) 
+                        break                     
+                    } else if(i.classList.contains("options--active-1") && xss === "options--active-1"){
+                        i.classList.remove("hide")
+                        i.classList.add(localStorage.getItem("options--active"))  
+                        break          
+                    }
+                }
+    }
+    
+    
+})
 
 //Agregando mis eventos
 option1.addEventListener("click", removeActive1)

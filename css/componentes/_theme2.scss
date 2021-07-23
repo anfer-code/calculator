@@ -11,6 +11,10 @@ $key-main-shadow2:hsl(35, 11%, 61%);
 $text-numbers2: hsl(60, 10%, 19%);
 $text-white: white;
 
+.hide {
+    opacity: 0;
+}
+
 .calculator--2 {
     background-color: $body-bg2;
 }
@@ -23,7 +27,7 @@ $text-white: white;
     background-color: $keypad-bg2;
 }
 
-.options--active--2 {
+.options--active-2 {
     background-color: $key-result-bg2;
     transition: background-color .3s ease-in-out;
 }
@@ -37,16 +41,21 @@ $text-white: white;
     background-color: $keypad-bg2;
 }
 
-.grid__item-2 {
-    background-color: $key-main-bg2;
-    box-shadow: 0px 3.5px 0 0px $key-main-shadow2;
+.grid__item {
 
-    &--complete {
+    &-2 {
+        background-color: $key-main-bg2;
+        box-shadow: 0px 3.5px 0 0px $key-main-shadow2;
+    
+    }
+
+    &--complete-2 {
+        color: $text-white;
         background-color: $key-reset-bg2;
         box-shadow: 0px 3.5px 0 0px $key-reset-shadow2;
     }
 
-    &--result {
+    &--result-2 {
         color: $text-white;
         background-color: $key-result-bg2;
         box-shadow: 0px 3.5px 0 0px $key-result-shadow2;
