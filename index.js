@@ -337,7 +337,12 @@ function result(ev, operanding){
 
     } else if(operador === "*") {
         let resultadito = val1 * valor2;
-        pantalla.append(resultadito)
+        if(resultadito === Math.floor(resultadito)){
+            pantalla.append(resultadito)
+        } else {
+            pantalla.append(resultadito.toFixed(2))
+
+        }
         if(cont === 2) {
             pantalla.innerText+= operanding 
             let valorsito = resultadito
