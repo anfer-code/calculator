@@ -140,7 +140,6 @@ window.addEventListener("load", function (){
             i.classList.add(localStorage.getItem("grid-item-result"))
     } 
     }
-    debugger
     if(!this.localStorage.getItem("options--active")){
         optionsArray[0].classList.remove("hide")
     } else {
